@@ -90,100 +90,139 @@
                     </select>
 
                     <input type='submit' value='Procurar'/>
-                </form>";
+                    
+                </form>
+                <br>";
             ?>
-            <table class="list">
-                <?php 
-                    $queries = array();
-                    parse_str($_SERVER['QUERY_STRING'], $queries);
+            
+            <?php
 
+                $nomeFilme = "";
+                $estudioFilme = "";
+                $generoFilme = "";
+                $anoFilme = "";
+                $ordemFilme = "";
+
+                $queries = array();
+                parse_str($_SERVER['QUERY_STRING'], $queries);
+
+                if(isset($queries['f_name'])){
                     $nomeFilme = $queries['f_name'];
+                }
+
+                if(isset($queries['f_estudio'])){
                     $estudioFilme = $queries['f_estudio'];
+                }
+
+                if(isset($queries['f_genero'])){
                     $generoFilme = $queries['f_genero'];
+                }
+
+                if(isset($queries['f_ano'])){
                     $anoFilme = $queries['f_ano'];
+                }
+
+                if(isset($queries['f_ordem'])){
                     $ordemFilme = $queries['f_ordem'];
+                }
+                else {
+                    $ordemFilme = "desc";
+                }
 
-                    $query = "Select * from filme order by AnoProd {$ordemFilme}";
+                $query = "Select * from filme f order by f.AnoProd {$ordemFilme}";
 
-                    if(empty($nomeFilme) && empty($estudioFilme) && empty($generoFilme) && empty($anoFilme)){
-                        $query = "Select * from filme order by AnoProd {$ordemFilme}";
-                    }
+                if(empty($nomeFilme) && empty($estudioFilme) && empty($generoFilme) && empty($anoFilme)){
+                    $query = "Select * from filme f order by f.AnoProd {$ordemFilme}";
+                }
 
-                    else if(!empty($nomeFilme) && empty($estudioFilme) && empty($generoFilme) && empty($anoFilme)){
-                        $query = "Select * from filme where NomeFilme like '%$nomeFilme%' order by AnoProd {$ordemFilme}";
-                    }
+                else if(!empty($nomeFilme) && empty($estudioFilme) && empty($generoFilme) && empty($anoFilme)){
+                    $query = "Select * from filme f where f.NomeFilme like '%$nomeFilme%' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(empty($nomeFilme) && !empty($estudioFilme) && empty($generoFilme) && empty($anoFilme)){
-                        $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' order by AnoProd {$ordemFilme}";
-                    }
+                else if(empty($nomeFilme) && !empty($estudioFilme) && empty($generoFilme) && empty($anoFilme)){
+                    $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(empty($nomeFilme) && empty($estudioFilme) && !empty($generoFilme) && empty($anoFilme)){
-                        $query = "Select * from filme f join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' order by AnoProd {$ordemFilme}";
-                    }
+                else if(empty($nomeFilme) && empty($estudioFilme) && !empty($generoFilme) && empty($anoFilme)){
+                    $query = "Select * from filme f join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(empty($nomeFilme) && empty($estudioFilme) && empty($generoFilme) && !empty($anoFilme)){
-                        $query = "Select * from filme where AnoProd>='{$anoFilme}-01-01' and AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
-                    }
+                else if(empty($nomeFilme) && empty($estudioFilme) && empty($generoFilme) && !empty($anoFilme)){
+                    $query = "Select * from filme f where f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(!empty($nomeFilme) && !empty($estudioFilme) && empty($generoFilme) && empty($anoFilme)){
-                        $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' where f.NomeFilme like '%$nomeFilme%' order by AnoProd {$ordemFilme}";
-                    }
+                else if(!empty($nomeFilme) && !empty($estudioFilme) && empty($generoFilme) && empty($anoFilme)){
+                    $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' where f.NomeFilme like '%$nomeFilme%' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(!empty($nomeFilme) && empty($estudioFilme) && !empty($generoFilme) && empty($anoFilme)){
-                        $query = "Select * from filme f join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' where f.NomeFilme like '%$nomeFilme%' order by AnoProd {$ordemFilme}";
-                    }
+                else if(!empty($nomeFilme) && empty($estudioFilme) && !empty($generoFilme) && empty($anoFilme)){
+                    $query = "Select * from filme f join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' where f.NomeFilme like '%$nomeFilme%' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(!empty($nomeFilme) && empty($estudioFilme) && empty($generoFilme) && !empty($anoFilme)){
-                        $query = "Select * from filme where NomeFilme like '%$nomeFilme%' and AnoProd>='{$anoFilme}-01-01' and AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
-                    }
+                else if(!empty($nomeFilme) && empty($estudioFilme) && empty($generoFilme) && !empty($anoFilme)){
+                    $query = "Select * from filme f where f.NomeFilme like '%$nomeFilme%' and f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by f.AnoProd {$ordemFilme}";
+                }
 
-                    else if(!empty($nomeFilme) && !empty($estudioFilme) && !empty($generoFilme) && empty($anoFilme)){
-                        $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' where f.NomeFilme like '%$nomeFilme%' order by AnoProd {$ordemFilme}";
-                    }
+                else if(!empty($nomeFilme) && !empty($estudioFilme) && !empty($generoFilme) && empty($anoFilme)){
+                    $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' where f.NomeFilme like '%$nomeFilme%' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(!empty($nomeFilme) && !empty($estudioFilme) && empty($generoFilme) && !empty($anoFilme)){
-                        $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' where f.NomeFilme like '%$nomeFilme%' and f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
-                    }
+                else if(!empty($nomeFilme) && !empty($estudioFilme) && empty($generoFilme) && !empty($anoFilme)){
+                    $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' where f.NomeFilme like '%$nomeFilme%' and f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(!empty($nomeFilme) && empty($estudioFilme) && !empty($generoFilme) && !empty($anoFilme)){
-                        $query = "Select * from filme f join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' where f.NomeFilme like '%$nomeFilme%' and f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
-                    }
+                else if(!empty($nomeFilme) && empty($estudioFilme) && !empty($generoFilme) && !empty($anoFilme)){
+                    $query = "Select * from filme f join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' where f.NomeFilme like '%$nomeFilme%' and f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(empty($nomeFilme) && !empty($estudioFilme) && !empty($generoFilme) && empty($anoFilme)){
-                        $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' order by AnoProd {$ordemFilme}";
-                    }
+                else if(empty($nomeFilme) && !empty($estudioFilme) && !empty($generoFilme) && empty($anoFilme)){
+                    $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(empty($nomeFilme) && !empty($estudioFilme) && empty($generoFilme) && !empty($anoFilme)){
-                        $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' where f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
-                    }
+                else if(empty($nomeFilme) && !empty($estudioFilme) && empty($generoFilme) && !empty($anoFilme)){
+                    $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' where f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(empty($nomeFilme) && !empty($estudioFilme) && !empty($generoFilme) && !empty($anoFilme)){
-                        $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' where f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
-                    }
+                else if(empty($nomeFilme) && !empty($estudioFilme) && !empty($generoFilme) && !empty($anoFilme)){
+                    $query = "Select * from filme f join estudio e on f.CodEst=e.CodEst and e.Nome='$estudioFilme' join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' where f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
+                }
 
-                    else if(empty($nomeFilme) && empty($estudioFilme) && !empty($generoFilme) && !empty($anoFilme)){
-                        $query = "Select * from filme f join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' where f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
-                    }
+                else if(empty($nomeFilme) && empty($estudioFilme) && !empty($generoFilme) && !empty($anoFilme)){
+                    $query = "Select * from filme f join filme_genero g on f.CodFilme=g.CodFilme and g.Nome='{$generoFilme}' where f.AnoProd>='{$anoFilme}-01-01' and f.AnoProd<='{$anoFilme}-12-31' order by AnoProd {$ordemFilme}";
+                }
 
-                    $buscaFilme = $banco->query($query);
+                $buscaFilme = $banco->query($query);
 
-                    if(!$buscaFilme){
-                        echo "<tr><td>Houve um erro ao acessar o banco de Filmes :(";
+                $queryReplace = str_replace("*", "f.CodFilme", $query);
+
+                $totalQuery = "Select count(*) AS Total from filme t where t.CodFilme in ({$queryReplace})";
+
+                $totalFilme = $banco->query($totalQuery);
+
+                if($totalFilme){
+                    $totalResultado = $totalFilme->fetch_object();
+                    $total = $totalResultado->Total;
+                    echo "<h4>Foram encontrados {$total} filme(s). <a href='./cadastrar.php'><button>Cadastrar novo filme</button></a></h4>";
+                }
+
+                if(!$buscaFilme){
+                    echo "<table class='list'><tr><td>Houve um erro ao acessar o banco de Filmes :(</td></tr></table>";
+                }else{
+                    if($buscaFilme->num_rows == 0){
+                        echo "<table class='list'><tr><td>Nenhum filme encontrado :/</td></tr></table>";
                     }else{
-                        if($buscaFilme->num_rows == 0){
-                            echo "<tr><td>Nenhum filme encontrado :/";
-                        }else{
-                            while($reg = $buscaFilme->fetch_object()){ 
-                                echo "<tr><td><a href='./filme.php?f=$reg->CodFilme'><img src=$reg->Capa></a></td><td>$reg->NomeFilme</td><td>$reg->Diretor</td>";
-                                $date = new DateTime($reg->AnoProd);
-                                $aux = $date->format('Y');
-                                echo "<td>$aux</td></tr>";
-                            }
+                        echo "<table class='list'>";
+                        while($reg = $buscaFilme->fetch_object()){ 
+                            echo "<tr><td><a href='./filme.php?f=$reg->CodFilme'><img src=$reg->Capa></a></td><td>$reg->NomeFilme</td><td>$reg->Diretor</td>";
+                            $date = new DateTime($reg->AnoProd);
+                            $aux = $date->format('Y');
+                            echo "<td>$aux</td></tr>";
                         }
+                        echo "</table>";
                     }
+                }
 
-                ?>
-            </table>
+            ?>
 
         </div>
 

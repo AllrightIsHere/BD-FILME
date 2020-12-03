@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28-Nov-2020 às 21:24
+-- Tempo de geração: 03-Dez-2020 às 01:04
 -- Versão do servidor: 10.4.16-MariaDB
 -- versão do PHP: 7.4.12
 
@@ -49,7 +49,9 @@ INSERT INTO `ator` (`CodAtor`, `NomeAtor`) VALUES
 (53, 'Ben Affleck'),
 (54, 'Gal Gadot'),
 (55, 'Henry Cavill'),
-(56, 'Jason Momoa');
+(56, 'Jason Momoa'),
+(57, 'Ferdia Shaw'),
+(58, 'Lara McDonnell');
 
 -- --------------------------------------------------------
 
@@ -80,7 +82,9 @@ INSERT INTO `elenco` (`CodFilme`, `CodAtor`, `Papel`) VALUES
 (51, 53, 'Ator Principal'),
 (51, 54, 'Ator Principal'),
 (51, 55, 'Ator Principal'),
-(51, 56, 'Ator Principal');
+(51, 56, 'Ator Principal'),
+(52, 57, 'Ator Principal'),
+(52, 58, 'Ator Secundário');
 
 -- --------------------------------------------------------
 
@@ -102,7 +106,8 @@ INSERT INTO `estudio` (`CodEst`, `Nome`, `Logo`) VALUES
 (0, 'Universal Studios', 'https://img2.gratispng.com/20180403/gue/kisspng-universal-orlando-universal-studios-hollywood-univ-studio-5ac34b4ac6a306.9192322215227482348136.jpg'),
 (1, 'Paramount Pictures', 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Paramount.png'),
 (50, 'Marvel Studios', 'https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/marvel-intro-e1556625768997.jpg'),
-(51, 'Warner Bros', 'http://sentaai.com/wp-content/uploads/2018/09/warner-bros-logo-800x445.jpg');
+(51, 'Warner Bros', 'http://sentaai.com/wp-content/uploads/2018/09/warner-bros-logo-800x445.jpg'),
+(52, 'Walt Disney Pictures', 'https://logodownload.org/wp-content/uploads/2014/04/walt-disney-logo.png');
 
 -- --------------------------------------------------------
 
@@ -128,7 +133,8 @@ INSERT INTO `filme` (`CodFilme`, `NomeFilme`, `AnoProd`, `CodEst`, `Diretor`, `C
 (0, 'VELOZES & FURIOSOS 8', '2017-04-13', 0, 'F. Gary Gray', 'https://upload.wikimedia.org/wikipedia/pt/1/15/Velozes_e_Furiosos_8_p%C3%B4ster.jpg', 'KvSlvtPnZTo'),
 (1, 'Forrest Gump', '1994-07-06', 1, 'Robert Zemeckis', 'https://upload.wikimedia.org/wikipedia/pt/c/c0/ForrestGumpPoster.jpg', 'p0p5CQUjTxI'),
 (50, 'Homem De Ferro', '2008-01-01', 50, 'Jon Favreau', 'https://upload.wikimedia.org/wikipedia/pt/0/00/Iron_Man_poster.jpg', '8ugaeA-nMTc'),
-(51, 'Liga da Justiça', '2017-06-01', 51, 'Zack Snyder', 'https://br.web.img2.acsta.net/pictures/17/10/23/19/55/0260439.jpg', '1ZRBL9PwG5E');
+(51, 'Liga da Justiça', '2017-06-01', 51, 'Zack Snyder', 'https://br.web.img2.acsta.net/pictures/17/10/23/19/55/0260439.jpg', '1ZRBL9PwG5E'),
+(52, 'Artemis Fowl', '2020-06-12', 52, 'Kenneth Branagh', 'https://i1.wp.com/books.disney.com/content/uploads/2019/03/ArtemisFowl_MTI.jpg', 'fl2r3Fwxz_o');
 
 -- --------------------------------------------------------
 
@@ -154,7 +160,9 @@ INSERT INTO `filme_genero` (`CodFilme`, `Nome`) VALUES
 (50, 'Herói'),
 (51, 'Ação'),
 (51, 'Crossover'),
-(51, 'Herói');
+(51, 'Herói'),
+(52, 'Aventura'),
+(52, 'Ficção');
 
 --
 -- Índices para tabelas despejadas
