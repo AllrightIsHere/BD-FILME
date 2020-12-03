@@ -4,7 +4,8 @@
         <title>Quartel dos Filmes</title>
         <meta charset="UTF-8"/>
         <link rel="stylesheet" href="style.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="js/jquery.js"></script>
     </head>
 
     <body>
@@ -46,28 +47,34 @@
 
                             echo
                             "
+                            <div class=edit-mode-flag>
+                            Salvar alterações
+                            <div id=done-movie-title-bt>
+                                <i class='material-icons' style='font-size:25px;color:white'>done</i>
+                            </div>
+                            </div>
+                            
                             <div class=movie-name-head>
-                                <h1>$reg->NomeFilme ($year)</h1>
-                                <a href='./edit-filme.php?f=$reg->CodFilme'>
-                                    <i class='fa fa-pencil' style='font-size:25px;color:white'></i>
-                                </a>
+                                <h1 id=title-input contentEditable=true>$reg->NomeFilme</h1><h1>($year)</h1>
                             </div>";
-
-                            echo "<iframe width='789' height='444' src='https://www.youtube.com/embed/$reg->Source' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
-                            echo "<table class='list'>";
+                            echo "<h4>Url youtube:</h4>";
+                            echo "<h4 id=video-url contentEditable=true>https://www.youtube.com/watch?v=$reg->Source</h4>";
+                            echo "<iframe id=movie-frame width='789' height='444' src='https://www.youtube.com/embed/$reg->Source' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+                            echo "<table class='list' style='table-layout:fixed; width:900px'>";
                                 echo "<tr>
-                                        <td>
-                                            <img src=$reg->Capa>
+                                        <td class='wrapword'>
+                                            <img id=cover-img src=$reg->Capa>
+                                            <p id=cover-src contentEditable=true>$reg->Capa</p>
                                         </td>
-                                        <td>
+                                        <td class='wrapword'>
                                             <h4>Elenco:</h4>
                                             $elenco_view
                                         </td>
-                                        <td>
+                                        <td class='wrapword'>
                                             <h4>Diretor:</h4>
-                                            <p>$reg->Diretor</p>
+                                            <p id=director-name contentEditable=true>$reg->Diretor</p>
                                         </td>
-                                        <td>
+                                        <td class='wrapword'>
                                             <h4>Estúdio:</h4>
                                             <img src=$estudio->Logo>
                                         </td>
@@ -81,6 +88,7 @@
         </div>
 
         <?php $banco->close(); ?>
-
+        
+        <script src="./js/edit-filme.js"></script>
     </body>
 </html>

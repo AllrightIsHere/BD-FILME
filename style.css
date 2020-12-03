@@ -1,9 +1,9 @@
-body{
+body {
     background-color: white;
     font-family: Tahoma;
 }
 
-div#body{
+div#body {
     width: 800px;
     margin: auto;
     padding: 20px;
@@ -17,24 +17,52 @@ table.list img {
     height: auto;
 }
 
-table.list{
+table.list {
     width: 100%;
     text-align: center;
     border-collapse: collapse;
 }
 
-table.list td{
+table.list td {
     padding: 10px;
 }
 
-table.list td:nth-child(1){
+table.list td:nth-child(1) {
     width: 55px;
 }
 
-table.list td:nth-child(3){
+table.list td:nth-child(3) {
     width: 100px;
 }
 
-table.list tr{
+table.list tr {
     height: 60px;
+}
+
+.movie-name-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.wrapword {
+    white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+    white-space: -webkit-pre-wrap; /* Chrome & Safari */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    white-space: pre-wrap; /* CSS3 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+}
+
+.edit-mode-flag {
+    border-radius: 25px;
+    background: #666865;
+    padding: 20px;
+    width: 200px;
+    height: 30px;
 }
