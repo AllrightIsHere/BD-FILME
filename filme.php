@@ -31,6 +31,15 @@
 
                     $elenco_view = join('', $elenco);
 
+                    $generos = array();
+                    $buscaGeneros = $banco->query("Select Nome from filme_genero where CodFilme=$cod_filme");
+
+                    while($reg = $buscaGeneros->fetch_assoc()){
+                        array_push($generos, "<p>{$reg['Nome']}</p>");
+                    }
+
+                    $generos_view = join('', $generos);
+
                     if(!$buscaFilme){
                         echo "<tr><td>Houve um erro ao acessar o banco de Filmes :(";
                     }else{
@@ -66,6 +75,10 @@
                                         <td>
                                             <h4>Diretor:</h4>
                                             <p>$reg->Diretor</p>
+                                        </td>
+                                        <td>
+                                            <h4>Gêneros:</h4>
+                                            $generos_view
                                         </td>
                                         <td>
                                             <h4>Estúdio:</h4>
