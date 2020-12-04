@@ -33,7 +33,7 @@
                     $elenco_view = join('', $elenco);
 
                     $generos = array();
-                    $buscaGeneros = $banco->query("Select Nome from filme_genero where CodFilme=$cod_filme");
+                    $buscaGeneros = $banco->query("Select g.Nome from filme f left outer join filme_genero g on f.CodFilme=g.CodFilme where f.CodFilme=$cod_filme");
 
                     while($reg = $buscaGeneros->fetch_assoc()){
                         array_push($generos, "<p>{$reg['Nome']}</p>");
