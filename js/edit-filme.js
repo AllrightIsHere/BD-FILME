@@ -1,4 +1,5 @@
 document.getElementById("done-movie-title-bt").addEventListener("click", runAjax);
+document.getElementById("delete-movie-bt").addEventListener("click", deleteAjax);
 
 const searchParams = new URLSearchParams(window.location.search)
 
@@ -31,6 +32,25 @@ function runAjax() {
         })
         .fail(function () {
             $("#done-movie-title-bt i").html("error");
+        })
+    return false;
+}
+
+function deleteAjax() {
+    $("#delete-movie-bt i").html("cloud_upload");
+    const idMovie = Number(searchParams.get('f'));
+
+    $.post(
+        "api/delete-movie.php",
+        {
+            idMovie,
+        },
+        function (response) {
+            $("#delete-movie-bt i").html("cloud_done");
+            window.location.href = "../BD-FILME";
+        })
+        .fail(function () {
+            $("#delete-movie-bt i").html("error");
         })
     return false;
 }

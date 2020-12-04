@@ -47,10 +47,13 @@
 
                             echo
                             "
-                            <div class=edit-mode-flag>
+                            <div class='edit-mode-flag movie-name-head'>
                             Salvar alterações
                             <div id=done-movie-title-bt>
                                 <i class='material-icons' style='font-size:25px;color:white'>done</i>
+                            </div>
+                            <div id=delete-movie-bt>
+                                <i class='material-icons' style='font-size:25px;color:white'>delete</i>
                             </div>
                             </div>
                             
