@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Dez-2020 às 01:04
+-- Tempo de geração: 04-Dez-2020 às 18:18
 -- Versão do servidor: 10.4.16-MariaDB
 -- versão do PHP: 7.4.12
 
@@ -52,6 +52,18 @@ INSERT INTO `ator` (`CodAtor`, `NomeAtor`) VALUES
 (56, 'Jason Momoa'),
 (57, 'Ferdia Shaw'),
 (58, 'Lara McDonnell');
+
+--
+-- Acionadores `ator`
+--
+DELIMITER $$
+CREATE TRIGGER `create_ator` AFTER INSERT ON `ator` FOR EACH ROW insert into log values(NEW.CodAtor, 'Ator', 'Criação', sysdate())
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_ator` AFTER UPDATE ON `ator` FOR EACH ROW insert into log values(NEW.CodAtor, 'Ator', 'Atualização', sysdate())
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -109,6 +121,18 @@ INSERT INTO `estudio` (`CodEst`, `Nome`, `Logo`) VALUES
 (51, 'Warner Bros', 'http://sentaai.com/wp-content/uploads/2018/09/warner-bros-logo-800x445.jpg'),
 (52, 'Walt Disney Pictures', 'https://logodownload.org/wp-content/uploads/2014/04/walt-disney-logo.png');
 
+--
+-- Acionadores `estudio`
+--
+DELIMITER $$
+CREATE TRIGGER `create_estudio` AFTER INSERT ON `estudio` FOR EACH ROW insert into log values (NEW.CodEst, 'Estudio', 'Criação', sysdate())
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_estudio` AFTER UPDATE ON `estudio` FOR EACH ROW insert into log values (NEW.CodEst, 'Estudio', 'Atualização', sysdate())
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -135,6 +159,18 @@ INSERT INTO `filme` (`CodFilme`, `NomeFilme`, `AnoProd`, `CodEst`, `Diretor`, `C
 (50, 'Homem De Ferro', '2008-01-01', 50, 'Jon Favreau', 'https://upload.wikimedia.org/wikipedia/pt/0/00/Iron_Man_poster.jpg', '8ugaeA-nMTc'),
 (51, 'Liga da Justiça', '2017-06-01', 51, 'Zack Snyder', 'https://br.web.img2.acsta.net/pictures/17/10/23/19/55/0260439.jpg', '1ZRBL9PwG5E'),
 (52, 'Artemis Fowl', '2020-06-12', 52, 'Kenneth Branagh', 'https://i1.wp.com/books.disney.com/content/uploads/2019/03/ArtemisFowl_MTI.jpg', 'fl2r3Fwxz_o');
+
+--
+-- Acionadores `filme`
+--
+DELIMITER $$
+CREATE TRIGGER `create_filme` AFTER INSERT ON `filme` FOR EACH ROW insert into log values (NEW.CodEst, 'Filme', 'Criação', sysdate())
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_filme` AFTER UPDATE ON `filme` FOR EACH ROW insert into log values (NEW.CodEst, 'Estudio', 'Atualização', sysdate())
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -163,6 +199,31 @@ INSERT INTO `filme_genero` (`CodFilme`, `Nome`) VALUES
 (51, 'Herói'),
 (52, 'Aventura'),
 (52, 'Ficção');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `log`
+--
+
+CREATE TABLE `log` (
+  `chave` int(5) NOT NULL,
+  `tabela` varchar(20) NOT NULL,
+  `operacao` varchar(50) NOT NULL,
+  `data_operacao` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `log`
+--
+
+INSERT INTO `log` (`chave`, `tabela`, `operacao`, `data_operacao`) VALUES
+(0, 'Estudio', 'Atualização', '2020-12-04'),
+(0, 'Estudio', 'Atualização', '2020-12-04'),
+(3, 'Ator', 'Atualização', '2020-12-04'),
+(3, 'Ator', 'Atualização', '2020-12-04'),
+(50, 'Estudio', 'Atualização', '2020-12-04'),
+(50, 'Estudio', 'Atualização', '2020-12-04');
 
 --
 -- Índices para tabelas despejadas
