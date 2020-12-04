@@ -76,7 +76,7 @@
                                 echo "<tr>
                                         <td class='wrapword'>
                                             <img id=cover-img src=$reg->Capa>
-                                            <p id=cover-src contentEditable=true>$reg->Capa</p>
+                                            <p hidden id=cover-src contentEditable=true>$reg->Capa</p>
                                         </td>
                                         <td class='wrapword'>
                                             <h4>Elenco:</h4>

@@ -1,5 +1,6 @@
 document.getElementById("done-movie-title-bt").addEventListener("click", runAjax);
 document.getElementById("delete-movie-bt").addEventListener("click", deleteAjax);
+document.getElementById("cover-img").addEventListener("click", () => $("#cover-src").attr("hidden", false));
 
 const searchParams = new URLSearchParams(window.location.search)
 
