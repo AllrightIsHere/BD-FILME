@@ -203,6 +203,13 @@
 
             ?>
 
+            <script>
+                const searchParams = new URLSearchParams(window.location.search);
+                if(searchParams.get('f_papeis')){
+                    window.location.href = '../BD-FILME';
+                }
+            </script>
+
         </div>
 
         <?php $banco->close(); ?>
